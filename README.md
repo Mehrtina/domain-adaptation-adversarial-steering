@@ -222,13 +222,15 @@ All error metrics are computed in **degrees**:
 
 ## Citation
 
-The citation for this repository will be added after the associated manuscript has been accepted and published.
+The citation for this repository will be added after the associated manuscript has been accepted and published. 
 
 ---
 
 ## License
 
 This code is released under the MIT License. See `LICENSE` for details.
+
+
 ---
 
 ## Contact
