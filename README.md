@@ -1,5 +1,4 @@
-# Adversarial Robustness of End-to-End Steering Models Under Domain Shift
-
+# Domain Adaptation Affects Adversarial Robustness in Autonomous Steering Models
 Associated with a manuscript submitted to *Scientific Reports* — Domain Adaptation Affects Adversarial Robustness in Autonomous Steering Models
 
 This repository contains the code used to generate the analyses, figures, and supplementary results described in the manuscript.
