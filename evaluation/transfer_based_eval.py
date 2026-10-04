@@ -9,7 +9,6 @@ Adversarial examples are generated using one architecture as the surrogate
 model and evaluated on the other architecture as the target model, without
 using target-model gradients.
 
-Expected project structure and all data/weight paths are defined in config.py.
 """
 
 import argparse
@@ -63,14 +62,7 @@ PGD_SETTINGS = {
 # ============================================================
 
 def fgsm_attack(model, image, label_degrees, epsilon=0.01):
-    """
-    Generate an FGSM adversarial example using the surrogate model.
 
-    Model output: radians
-    Ground-truth label: degrees
-    Attack loss: radians
-    Image range: [0, 1]
-    """
     image_tensor = tf.convert_to_tensor(image, dtype=tf.float32)
 
     label_radians = label_degrees * np.pi / 180.0
@@ -91,14 +83,7 @@ def fgsm_attack(model, image, label_degrees, epsilon=0.01):
 
 
 def pgd_attack(model, image, label_degrees, epsilon=0.01, alpha=0.002, iterations=10):
-    """
-    Generate a PGD adversarial example using the surrogate model.
 
-    Model output: radians
-    Ground-truth label: degrees
-    Attack loss: radians
-    Image range: [0, 1]
-    """
     image_tensor = tf.convert_to_tensor(image, dtype=tf.float32)
 
     label_radians = label_degrees * np.pi / 180.0
@@ -136,13 +121,7 @@ def pgd_attack(model, image, label_degrees, epsilon=0.01, alpha=0.002, iteration
 # ============================================================
 
 def load_ground_truth(csv_path):
-    """
-    Load ground-truth steering angles from CSV.
 
-    Supported formats:
-    1. Two-column CSV: frame_name, steering_angle
-    2. Space-separated single-column rows: frame_name steering_angle
-    """
     ground_truth = {}
 
     csv_path = Path(csv_path)
@@ -200,7 +179,7 @@ def load_ground_truth(csv_path):
 
 
 def build_model(architecture):
-    """Build model architecture."""
+   
     if architecture == "PilotNet":
         return PilotNet(input_shape=(66, 200, 3)).build_model()
 
@@ -211,18 +190,13 @@ def build_model(architecture):
 
 
 def predict_degrees(model, image):
-    """
-    Predict steering angle in degrees.
 
-    The model output is assumed to be in radians, so predictions are converted
-    back to degrees for metric reporting.
-    """
     pred_rad = model.predict(np.expand_dims(image, axis=0), verbose=0)[0][0]
     return float(pred_rad * 180.0 / np.pi)
 
 
 def calculate_metrics(actuals, clean_predictions, adversarial_predictions):
-    """Calculate degree-based clean and transferred adversarial metrics."""
+   
     actuals = np.array(actuals, dtype=np.float32)
     clean_predictions = np.array(clean_predictions, dtype=np.float32)
     adversarial_predictions = np.array(adversarial_predictions, dtype=np.float32)
@@ -254,9 +228,9 @@ def calculate_metrics(actuals, clean_predictions, adversarial_predictions):
     }
 
 
-# ============================================================
+
 # Transfer-based black-box evaluation
-# ============================================================
+
 
 def evaluate_transfer_blackbox(
     surrogate_architecture,
@@ -272,13 +246,7 @@ def evaluate_transfer_blackbox(
     alpha=0.005,
     iterations=10,
 ):
-    """
-    Run transfer-based black-box evaluation.
 
-    The attack is generated using the surrogate model.
-    The adversarial image is evaluated using the target model.
-    Target-model gradients are not used to generate the attack.
-    """
     save_folder = Path(save_folder)
     save_folder.mkdir(parents=True, exist_ok=True)
 
@@ -430,9 +398,7 @@ def evaluate_transfer_blackbox(
     return result_row
 
 
-# ============================================================
-# Main
-# ============================================================
+
 
 def main():
     parser = argparse.ArgumentParser(
