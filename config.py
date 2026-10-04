@@ -63,6 +63,7 @@ FIGURES_DIR = PROJECT_ROOT / "figures"
 RESULTS_FGSM_DIR         = RESULTS_DIR / "fgsm_evaluation"
 RESULTS_PGD_PILOTNET_DIR = RESULTS_DIR / "pgd_pilotnet"
 RESULTS_PGD_RESNET_DIR   = RESULTS_DIR / "pgd_resnet"
+RESULTS_TRANSFER_BLACKBOX_DIR = RESULTS_DIR / "transfer_blackbox"
 
 # ── Training hyperparameters (shared defaults) ────────────────────────────────
 BATCH_SIZE    = 128
